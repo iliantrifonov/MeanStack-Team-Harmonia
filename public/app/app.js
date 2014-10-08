@@ -43,6 +43,7 @@ app.config(function($routeProvider, $locationProvider) {
             controller: 'UserListCtrl',
             resolve: routeUserChecks.adminRole
         })
+        .otherwise({ redirectTo: '/' });
 });
 
 app.run(function($rootScope, $location) {

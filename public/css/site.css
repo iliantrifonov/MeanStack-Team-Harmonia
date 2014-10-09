@@ -18,3 +18,11 @@ footer p {
   border-top: 1px solid #808080;
   padding-top: 10px;
 }
+td img {
+  width: 75px;
+  height: 75px;
+}
+.product-image {
+  max-height: 450px;
+  max-width: 450px;
+}

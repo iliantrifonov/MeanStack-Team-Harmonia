@@ -12,7 +12,7 @@ var commentSchema = mongoose.Schema({
     }
 });
 
-var Course = mongoose.model('Comment', commentSchema);
+var Comment = mongoose.model('Comment', commentSchema);
 module.exports.seedInitial = function () {
     // TODO: Seed initial products
 };

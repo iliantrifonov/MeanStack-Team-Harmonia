@@ -14,7 +14,6 @@ app.factory('ProductsResource', function($resource, $http, $q) {
         searchString = searchString.substring(0, searchString.length - 1);
 
         var deffered = $q.defer();
-        console.log(searchString);
 
         $http({method: 'GET', url: '/api/products/' + searchString}).
             success(function(data, status, headers, config) {

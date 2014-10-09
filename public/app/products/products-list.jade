@@ -1,14 +1,20 @@
 .container
     .row
         .col-md-2 Search
-        .col-md-4
-            input.form-control(type="text", placeholder="Search", ng-model="search")
+                input.form-control(type="text", placeholder="Search" ng-model="sort")
         .col-md-2 Sort
-        .col-md-4
-            select.form-control(ng-model="sort")
-                option(value=" " ng-selected="'true'") Default
-                option(value="title") Title
-                option(value="categories") Category
+            select.form-control(ng-model="selectionOption.sortBy" ng-change="getProducts(selectionOption)")
+                option(value="name") Name
+                option(value="price") Price
+                option(value="description") Description
+
+        .col-md-2 Order by
+            select.form-control(ng-model="selectionOption.order" ng-change="getProducts(selectionOption)")
+                option(value="asc") Ascending
+                option(value="desc") Descending
+        .col-md-1 Page
+            input.form-control(type="number", ng-model="selectionOption.page", min = "0", ng-change="getProducts(selectionOption)")
+
     br
     table.table
         tr
@@ -19,7 +25,7 @@
             th Stock
             th Stars
             th Price
-        tr(ng-repeat="product in products | filter: search | orderBy: sort")
+        tr(ng-repeat="product in products | filter: sort")
             td
                 a(href="#/products/{{ product._id }}") {{ product.name }}
             td

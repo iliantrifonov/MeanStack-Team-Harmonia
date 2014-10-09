@@ -5,14 +5,17 @@ var commentSchema = mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    content: String,
+    content: {
+        type:String,
+        required: true
+    },
     user: {
         type: mongoose.Schema.ObjectId,
         ref: 'User'
     }
 });
 
-var Course = mongoose.model('Comment', commentSchema);
+var Comment = mongoose.model('Comment', commentSchema);
 module.exports.seedInitial = function () {
     // TODO: Seed initial products
 };

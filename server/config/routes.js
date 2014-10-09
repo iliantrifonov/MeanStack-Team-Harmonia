@@ -12,6 +12,9 @@ module.exports = function(app) {
     app.post('/api/admin/users', auth.isInRole('admin'), controllers.users.addRole);
     app.delete('/api/admin/users', auth.isInRole('admin'), controllers.users.removeRole);
 
+
+    //for comments
+  //  app.post('/api/comments', controllers.comments.createComment);
     // for messages
 
     app.get('/api/messages', auth.isInRole('admin'), controllers.messages.getAll);
@@ -21,10 +24,6 @@ module.exports = function(app) {
     app.get('/api/basket', auth.isAuthenticated, controllers.basket.getAll);
     app.post('/api/basket', auth.isAuthenticated, controllers.basket.add);
     app.delete('/api/basket', auth.isAuthenticated, controllers.basket.remove);
-
-    // TODO: Delete
-    app.get('/api/courses', controllers.courses.getAllCourses);
-    app.get('/api/courses/:id', controllers.courses.getCourseById);
 
     // for products
     // TODO: Add more

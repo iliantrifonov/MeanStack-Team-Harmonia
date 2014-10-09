@@ -25,6 +25,7 @@ module.exports = {
         add: function (req, res, next) {
             if(!req.body.content) {
                 res.status(400).send('No valid content');
+                return;
             }
 
             var message = req.body;

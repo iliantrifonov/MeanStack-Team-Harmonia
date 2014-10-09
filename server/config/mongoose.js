@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
-//    user = require('../models/User'),
-//    course = require('../models/Course'),
-//    product = require('../models/Product');
+//    user = require('../controllers/User'),
+//    course = require('../controllers/Course'),
+//    product = require('../controllers/Product');
 
 var fs = require('fs');
 var models = fs.readdirSync('./server/models');

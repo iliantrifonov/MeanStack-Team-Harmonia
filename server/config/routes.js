@@ -15,13 +15,14 @@ module.exports = function(app) {
     // TODO: Add more
     app.put('/api/products', controllers.products.updateProduct);
     app.post('/api/products', controllers.products.createProduct);
-    app.get('/api/products', controllers.products.getByPage);// ?page=(number)  
+    // ?page=(number)?sortBy(something)
+
     app.get('/api/products', controllers.products.getAll);
     app.get('/api/products/:id', controllers.products.getById);
 
 
     // for messages
-    
+
     app.get('/api/messages', controllers.messages.getAll);
     app.post('/api/messages', controllers.messages.add);
 

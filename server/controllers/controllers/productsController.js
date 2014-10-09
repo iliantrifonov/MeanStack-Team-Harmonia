@@ -31,38 +31,81 @@ module.exports = {
 
             });
         },
-        getByPage: function (req, res, next) {
-            console.log(req.query.page)
-            var options = {
-                limit: 10,
-                skip: req.query.page * 10,
-                sort: "published"
-            }
-            Product.find({},{},options).exec(function (err, collection) {
-                if (err) {
-                    console.log('Products could not be loaded: ' + err);
-                }
-                res.send(collection);
-            })
-        },
         getAll: function (req, res, next) {
+            var queryParams = req.query;
+            console.log(queryParams);
+            if(isEmpty(queryParams)) {
+                Product.find({}).exec(function (err, collection) {
+                    if (err) {
+                        console.log('Products could not be loaded: ' + err);
+                    }
 
-            Product.find({}).exec(function (err, collection) {
-                if (err) {
-                    console.log('Products could not be loaded: ' + err);
-                }
-
-                res.send(collection);
-            })
+                    res.send(collection);
+                })
+            }
+            else if(queryParams["name"] != null){
+                getByName(req, res);
+            }
+            else if(queryParams["page"] != null){
+                getByPage(req, res);
+            }
         },
         getById: function (req, res, next) {
+
             Product.findOne({_id: req.params.id}).exec(function (err, data) {
                 if (err) {
+
                     console.log('Course could not be loaded: ' + err);
                 }
 
                 res.send(data);
-            })
+            });
+
         }
     }
+
+
 };
+
+function getByName(req, res) {
+    Product.find({name: req.query.name}).exec(function (err, collection) {
+        if (err) {
+            console.log('Products could not be loaded: ' + err);
+            res.status(400);
+            return res.send({reason: 'Products could not be loaded: ' + err.toString()});
+        }
+
+        res.send(collection);
+    });
+}
+
+function getByPage(req, res) {
+    var options = {
+        limit: 10,
+        skip: req.query.page * 10,
+        sort: req.query.sortBy
+    };
+
+    Product.find({},{},options).exec(function (err, collection) {
+        if (err) {
+            console.log('Products could not be loaded: ' + err);
+            res.status(400);
+            return res.send({reason: 'Products could not be loaded: ' + err.toString()});
+        }
+
+        res.send(collection);
+    })
+}
+
+function isEmpty(obj) {
+    for(var prop in obj) {
+        if(obj.hasOwnProperty(prop))
+            return false;
+    }
+
+    return true;
+}
+
+function isEmpty(obj) {
+    return Object.keys(obj).length === 0;
+}

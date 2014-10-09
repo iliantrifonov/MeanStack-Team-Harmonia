@@ -9,7 +9,7 @@ var coursesSchema = mongoose.Schema({
 
 var Course = mongoose.model('Course', coursesSchema);
 
-module.exports.seedInitialCourses = function() {
+module.exports.seedInitial = function() {
     Course.find({}).exec(function(err, collection) {
         if (err) {
             console.log('Cannot find courses: ' + err);

@@ -4,15 +4,17 @@ var productsSchema = mongoose.Schema({
     name: String,
     description: String,
     picture: String,
+    additionalInfo: String,
     price: Number,
     stock: Number,
+    stars: Number,
     featured: Boolean,
     published: {
         type: Date,
         default: Date.now
     },
     categories: [String],
-    user: {
+    seller: {
         type: mongoose.Schema.ObjectId,
         ref: 'User'
     }

@@ -6,7 +6,7 @@ module.exports = {
             if (err) {
                 console.log('Products could not be loaded: ' + err);
             }
-            console.log('getting all');
+
             res.send(collection);
         })
     },
@@ -15,7 +15,7 @@ module.exports = {
             if (err) {
                 console.log('Course could not be loaded: ' + err);
             }
-            console.log('getting one');
+
             res.send(data);
         })
     }

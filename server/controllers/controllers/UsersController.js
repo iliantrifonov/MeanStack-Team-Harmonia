@@ -1,11 +1,16 @@
 var encryption = require('../../utilities/encryption');
 var User = require('mongoose').model('User');
+var escape = require('escape-html');
 
 module.exports = {
     name: 'users',
     data: {
         createUser: function (req, res, next) {
             var newUserData = req.body;
+            newUserData.username = escape(newUserData.username);
+            newUserData.firstName = escape(newUserData.firstName);
+            newUserData.lastName = escape(newUserData.lastName);
+
             newUserData.salt = encryption.generateSalt();
             newUserData.hashPass = encryption.generateHashedPassword(newUserData.salt, newUserData.password);
             User.create(newUserData, function (err, user) {

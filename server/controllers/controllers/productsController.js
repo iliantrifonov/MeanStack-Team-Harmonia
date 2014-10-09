@@ -110,8 +110,6 @@ function getByPage(req, res) {
         options.sort = {desc: sortBy};
     }
 
-    console.log(page)
-
     Product.find({})
           .field(options)
           .filter(options)

@@ -20,7 +20,6 @@ module.exports = function(app) {
     // TODO: Add more
     app.put('/api/products', controllers.products.updateProduct);
     app.post('/api/products', controllers.products.createProduct);
-    app.get('/api/products', controllers.products.getByPage);// ?page=(number)  
     app.get('/api/products', controllers.products.getAll);
     app.get('/api/products/:id', controllers.products.getById);
 

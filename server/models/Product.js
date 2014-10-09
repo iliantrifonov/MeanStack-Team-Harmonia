@@ -37,6 +37,7 @@ module.exports.seedInitial = function () {
             Product.create({name: 'porova mas', description: 'mnogo e vkusna', picture: 'http://www.likecool.com/Gear/Pic/Weird%20animals/Weird-animals.jpg', additionalInfo: "nqma", price: 2, stock: 10, stars: 3, featured: true, categories: ['food']})
             Product.create({name: 'Kit', description: 'mnogo e vkusna', picture: 'http://www.likecool.com/Gear/Pic/Weird%20animals/Weird-animals.jpg', additionalInfo: "nqma", price: 2, stock: 10, stars: 3, featured: true, categories: ['food']})
             Product.create({name: 'mas', description: 'mnogo e vkusna', picture: 'http://www.likecool.com/Gear/Pic/Weird%20animals/Weird-animals.jpg', additionalInfo: "nqma", price: 2, stock: 10, stars: 3, featured: true, categories: ['food']})
+            Product.create({name: 'Zaeshka mas', description: 'super hiper mega vkusna', picture: 'http://www.clickreadshare.com/wp-content/uploads/bunny-on-a-bed-big.jpg', additionalInfo: "Ei mnogo mnogo mnogo mnogo mnogo mnogo mnogo mnogo mnogo mnogo mnogo mnogo  mnogo mnogo mnogo mnogo mnogo mnogo mnogo mnogo mnogo mnogo mnogo mnogo mnogo mnogo mnogo  mnogo mnogo mnogo", price: 3, stock: 4, stars: 2, featured: true, categories: ['food']})
         }
     })
 };

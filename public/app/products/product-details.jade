@@ -1,0 +1,9 @@
+.container
+    .jumbotron
+        .row
+            .col-md-6
+                h1 {{ product.name }}
+                p {{ product.description }}
+                p {{ product.additionalInfo }}
+            .col-md-6
+                img.product-image(ng-src="{{ product.picture }}")

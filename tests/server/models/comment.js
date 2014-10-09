@@ -6,17 +6,17 @@
 var should = require('should'),
     mongoose = require('mongoose'),
     User = mongoose.model('User'),
-    Message = mongoose.model('Message');
+    Comment = mongoose.model('Comment');
 
 /**
  * Globals
  */
-var user, message;
+var user, comment;
 
 /**
  * Unit tests
  */
-describe('Message Model Unit Tests:', function() {
+describe('Comment Model Unit Tests:', function() {
     beforeEach(function(done) {
         user = new User({
             firstName: 'Full',
@@ -26,7 +26,7 @@ describe('Message Model Unit Tests:', function() {
         });
 
         user.save(function() {
-            message = new Message({
+            comment = new Comment({
                 content: 'Content',
                 user: user
             });
@@ -36,17 +36,17 @@ describe('Message Model Unit Tests:', function() {
     });
 
     describe('Method Save', function() {
-        it('should be able to save without problems', function(done) {
-            return message.save(function(err) {
+        it('correct data should be able to save without problems', function(done) {
+            return comment.save(function(err) {
                 should.not.exist(err);
                 done();
             });
         });
 
         it('should be able to show an error when try to save without content', function(done) {
-            message.content = '';
+            comment.content = '';
 
-            return message.save(function(err) {
+            return comment.save(function(err) {
                 should.exist(err);
                 done();
             });
@@ -54,7 +54,7 @@ describe('Message Model Unit Tests:', function() {
 
         it('should set date when content is correct', function(done) {
 
-            return message.save(function(err, data) {
+            return comment.save(function(err, data) {
                 should.not.exist(err);
 
                 should.exist(data.published);
@@ -65,7 +65,7 @@ describe('Message Model Unit Tests:', function() {
     });
 
     afterEach(function(done) {
-        Message.remove().exec();
+        Comment.remove().exec();
         User.remove().exec();
         done();
     });

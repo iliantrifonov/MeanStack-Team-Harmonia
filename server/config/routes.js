@@ -7,6 +7,11 @@ module.exports = function(app) {
     app.post('/api/users', controllers.users.createUser);
     app.put('/api/users', auth.isAuthenticated, controllers.users.updateUser);
 
+    // for basket
+    app.get('/api/basket', auth.isAuthenticated, controllers.basket.getAll);
+    app.post('/api/basket', controllers.basket.add);
+    app.delete('/api/basket/:productId', auth.isAuthenticated, controllers.basket.remove);
+
     // TODO: Delete
     app.get('/api/courses', controllers.courses.getAllCourses);
     app.get('/api/courses/:id', controllers.courses.getCourseById);
@@ -15,7 +20,6 @@ module.exports = function(app) {
     // TODO: Add more
     app.put('/api/products', controllers.products.updateProduct);
     app.post('/api/products', controllers.products.createProduct);
-    app.get('/api/products', controllers.products.getByPage);// ?page=(number)  
     app.get('/api/products', controllers.products.getAll);
     app.get('/api/products/:id', controllers.products.getById);
 
@@ -38,10 +42,10 @@ module.exports = function(app) {
     app.get('/api/*', function(req, res) {
         res.status(404);
         res.end();
-    })
+    });
 
     // main index
     app.get('*', function(req, res) {
         res.render('index', {currentUser: req.user});
     });
-}
+};

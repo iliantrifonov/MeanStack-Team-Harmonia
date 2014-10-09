@@ -7,7 +7,11 @@ var userSchema = mongoose.Schema({
     lastName: { type: String, require: '{PATH} is required' },
     salt: String,
     hashPass: String,
-    roles: [String]
+    roles: [String],
+    basket: [{
+        type: mongoose.Schema.ObjectId,
+        ref : "Product"
+    }]
 });
 
 userSchema.method({

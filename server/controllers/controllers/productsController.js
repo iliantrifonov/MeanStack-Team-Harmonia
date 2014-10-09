@@ -6,6 +6,8 @@ module.exports = {
     name: 'products',
     data: {
         updateProduct: function (req, res, next) {
+            var userId = req.user.id;
+
             if(!req.body._id){
                 console.log('You should provide product _id');
                 res.status(400);
@@ -13,14 +15,27 @@ module.exports = {
                 return;
             }
 
-            var updatedProductData = req.body;
+            Product.findOne({_id: req.body._id}).exec(function (err, data) {
+                if (err) {
+                    res.status(400).send(err);
+                    return;
+                }
 
-            Product.update({_id: req.body._id}, updatedProductData, function () {
-                res.end();
+                if (!data) {
+                    res.status(400).send('No such product');
+                    return;
+                }
+
+                var updatedProductData = req.body;
+
+                Product.update({_id: req.body._id}, updatedProductData, function () {
+                    res.end();
+                });
             });
         },
         createProduct: function(req, res, next){
             var newProductData = req.body;
+            newProductData.seller = req.user.id;
 
             Product.create(newProductData, function (err, product) {
                 if (err) {
@@ -29,8 +44,8 @@ module.exports = {
                     res.end();
                     return;
                 }
-                res.send(product);
 
+                res.send(product);
             });
         },
         getAll: function (req, res, next) {

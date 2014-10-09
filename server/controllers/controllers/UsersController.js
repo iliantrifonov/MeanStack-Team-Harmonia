@@ -48,6 +48,86 @@ module.exports = {
 
                 res.send(collection);
             })
+        },
+        getRoles: function(req, res) {
+            User.findOne({'_id': req.params.id}).exec(function(err, data){
+                if (err) {
+                    res.status(400).send(err);
+                    return;
+                }
+
+                if (!data) {
+                    res.status(400).send('No such user');
+                    return;
+                }
+
+                res.send(data.roles);
+            });
+        },
+        addRole: function(req, res) {
+            if (!req.body.role) {
+                res.status(400).send('Not a valid role');
+                return;
+            }
+
+            User.findOne({'_id': req.body.id}).exec(function(err, data){
+                if (err) {
+                    res.status(400).send(err);
+                    return;
+                }
+
+                if (!data) {
+                    res.status(400).send('No such user');
+                    return;
+                }
+
+                data.roles.push(req.body.role);
+                data.save(function(err, data) {
+                    if (err) {
+                        res.status(400).send(err);
+                        return;
+                    }
+
+                    res.send('Roles successfully updated');
+                });
+            });
+        },
+        removeRole: function(req, res) {
+            if (!req.body.role) {
+                res.status(400).send('Not a valid role');
+                return;
+            }
+
+            User.findOne({'_id': req.body.id}).exec(function(err, data){
+                if (err) {
+                    res.status(400).send(err);
+                    return;
+                }
+
+                if (!data) {
+                    res.status(400).send('No such user');
+                    return;
+                }
+
+                var index = data.roles.indexOf(req.body.role);
+
+                if (index > -1) {
+                    data.roles.splice(index, 1);
+                }
+                else {
+                    res.send('No such role for this user');
+                    return;
+                }
+
+                data.save(function(err, data) {
+                    if (err) {
+                        res.status(400).send(err);
+                        return;
+                    }
+
+                    res.send('Roles successfully updated');
+                });
+            });
         }
     }
-}
+};

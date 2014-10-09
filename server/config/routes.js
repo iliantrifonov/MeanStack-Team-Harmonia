@@ -20,7 +20,7 @@ module.exports = function(app) {
     // TODO: Add more
     app.put('/api/products', controllers.products.updateProduct);
     app.post('/api/products', controllers.products.createProduct);
-//    app.get('/api/products', controllers.products.getByPage);// ?page=(number)
+    app.get('/api/products', controllers.products.getByPage);// ?page=(number)  
     app.get('/api/products', controllers.products.getAll);
     app.get('/api/products/:id', controllers.products.getById);
 
@@ -43,11 +43,10 @@ module.exports = function(app) {
     app.get('/api/*', function(req, res) {
         res.status(404);
         res.end();
-    })
+    });
 
     // main index
     app.get('*', function(req, res) {
         res.render('index', {currentUser: req.user});
     });
-
-}
+};

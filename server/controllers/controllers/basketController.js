@@ -24,6 +24,7 @@ module.exports = {
                     }
 
                     data.basket.push(req.body.productId);
+
                     data.save(function (err, data) {
                         if (err) {
                             res.status(400).send(err);
@@ -36,24 +37,47 @@ module.exports = {
             });
         },
         remove: function (req, res, next) {
-            messageForDb.save(function (err, data) {
+            var product = Product.findOne({'_id': req.body.productId}).exec(function (err, data) {
                 if (err) {
-                    console.log(err);
                     res.status(400).send(err);
+                    return;
                 }
-                else {
-                    var userId = req.user.id;
-                    console.log(userId);
+
+                if (!data) {
+                    res.status(400).send('Product not found');
+                    return;
                 }
+
+                User.findOne({'_id': req.user.id }, function (err, data) {
+                    if (false) {
+                        res.status(400).send(err);
+                        return;
+                    }
+
+                    var index = data.basket.indexOf(req.body.productId);
+
+                    if (index > -1) {
+                        data.basket.splice(index, 1);
+                    }
+
+                    data.save(function (err, data) {
+                        if (err) {
+                            res.status(400).send(err);
+                            return;
+                        }
+
+                        res.send('Product deleted from basket');
+                    });
+                })
             });
         },
         getAll: function (req, res, next) {
-            Message.find({}).exec(function (err, collection) {
+            User.findOne({'_id': req.user.id }).populate('basket').exec(function (err, data) {
                 if (err) {
-                    console.log('Products could not be loaded: ' + err);
+                    console.log('Users could not be loaded: ' + err);
                 }
 
-                res.send(collection);
+                res.send(data.basket);
             })
         }
     }

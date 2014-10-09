@@ -9,8 +9,8 @@ module.exports = function(app) {
 
     // for basket
     app.get('/api/basket', auth.isAuthenticated, controllers.basket.getAll);
-    app.post('/api/basket', controllers.basket.add);
-    app.delete('/api/basket/:productId', auth.isAuthenticated, controllers.basket.remove);
+    app.post('/api/basket', auth.isAuthenticated, controllers.basket.add);
+    app.delete('/api/basket', auth.isAuthenticated, controllers.basket.remove);
 
     // TODO: Delete
     app.get('/api/courses', controllers.courses.getAllCourses);

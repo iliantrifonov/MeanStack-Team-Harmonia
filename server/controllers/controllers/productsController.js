@@ -94,36 +94,36 @@ function getByName(req, res) {
 
 function getByPage(req, res) {
 
+    var name = req.query.name;
     var page = req.query.page * 10 || 0;
     var order = req.query.order || "asc";
-    var filter;
+    var sortBy = req.query.sortBy || 'name';
 
     var options = {
-//        filters : {
-//            field : ["name","category","price"]
-//        },
         start : page,
         count : 10
     };
     if(order === "asc"){
-        options.sort = {asc: req.query.sortBy};
+        options.sort = {asc: sortBy};
     }
     else{
-        options.sort = {desc: req.query.sortBy};
+        options.sort = {desc: sortBy};
     }
+
+    console.log(page)
 
     Product.find({})
           .field(options)
           .filter(options)
           .order(options)
-          .page(options ,function (err, collection) {
+          .page(options, function (err, collection) {
             if (err) {
                 console.log('Products could not be loaded: ' + err);
                 res.status(400);
                 return res.send({reason: 'Products could not be loaded: ' + err.toString()});
             }
 
-            res.send({results:collection.results, total:collection.total});
+            res.send(collection.results);
         });
 };
 

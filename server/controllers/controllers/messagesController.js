@@ -1,4 +1,5 @@
 var Message = require('mongoose').model('Message');
+var escape = require('escape-html');
 
 module.exports = {
     name: 'messages',
@@ -22,8 +23,13 @@ module.exports = {
             })
         },
         add: function (req, res, next) {
-            // TODO: verify data
-            var messsage = req.body;
+            if(!req.body.content) {
+                res.status(400).send('No valid content');
+            }
+
+            var message = req.body;
+            message.content = escape(message.content);
+            message.user = req.user.id;
             var messageForDb = new Message(message);
             messageForDb.save(function (err, data) {
                 if (err) {

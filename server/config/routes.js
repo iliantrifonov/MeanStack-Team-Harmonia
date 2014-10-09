@@ -12,6 +12,11 @@ module.exports = function(app) {
     app.post('/api/admin/users', auth.isInRole('admin'), controllers.users.addRole);
     app.delete('/api/admin/users', auth.isInRole('admin'), controllers.users.removeRole);
 
+    // for messages
+
+    app.get('/api/messages', auth.isInRole('admin'), controllers.messages.getAll);
+    app.post('/api/messages', auth.isInRole('admin'), controllers.messages.add);
+
     // for basket
     app.get('/api/basket', auth.isAuthenticated, controllers.basket.getAll);
     app.post('/api/basket', auth.isAuthenticated, controllers.basket.add);
@@ -27,12 +32,6 @@ module.exports = function(app) {
     app.post('/api/products', auth.isInRole('seller'), controllers.products.createProduct);
     app.get('/api/products', controllers.products.getAll);
     app.get('/api/products/:id', controllers.products.getById);
-
-
-    // for messages
-    
-    app.get('/api/messages', controllers.messages.getAll);
-    app.post('/api/messages', controllers.messages.add);
 
     // for partials
     app.get('/partials/:partialArea/:partialName', function(req, res) {

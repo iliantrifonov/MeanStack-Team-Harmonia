@@ -1,4 +1,4 @@
-var Product = require('mongoose').model('Message');
+var Product = require('mongoose').model('Product');
 
 module.exports = {
     name: 'products',

@@ -1,10 +1,10 @@
 {
-  "name": "TelerikAcademyCourses",
+  "name": "MeanStack-TeamHarmonia",
   "version": "0.0.1",
   "description": "MEAN Stack application",
   "main": "server.js",
   "authors": [
-    "Ivaylo Kenov"
+    "Ilian Trifonov"
   ],
   "license": "MIT",
   "ignore": [

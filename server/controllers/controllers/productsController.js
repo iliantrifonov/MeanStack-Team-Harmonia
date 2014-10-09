@@ -1,5 +1,6 @@
 var Product = require('mongoose').model('Product');
 var mongoose = require('mongoose');
+var escape = require('escape-html');
 require('mongoose-middleware').initialize(mongoose);
 
 module.exports = {
@@ -15,6 +16,13 @@ module.exports = {
                 return;
             }
 
+            var updatedProductData = req.body;
+
+            updatedProductData.name = escape(updatedProductData.name);
+            updatedProductData.description  = escape(updatedProductData.description);
+            updatedProductData.picture  = escape(updatedProductData.picture);
+            updatedProductData.additionalInfo  = escape(updatedProductData.additionalInfo);
+
             Product.findOne({_id: req.body._id}).exec(function (err, data) {
                 if (err) {
                     res.status(400).send(err);
@@ -25,8 +33,6 @@ module.exports = {
                     res.status(400).send('No such product');
                     return;
                 }
-
-                var updatedProductData = req.body;
 
                 Product.update({_id: req.body._id}, updatedProductData, function () {
                     res.end();

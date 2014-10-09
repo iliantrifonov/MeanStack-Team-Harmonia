@@ -24,7 +24,7 @@ var productsSchema = mongoose.Schema({
     }
 });
 
-var Course = mongoose.model('Product', productsSchema);
+var Course = mongoose.model('Message', productsSchema);
 module.exports.seedInitial = function () {
     // TODO: Seed initial products
 };

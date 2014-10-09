@@ -1,0 +1,56 @@
+.container
+    .jumbotron
+        .row
+            .col-md-6
+                form.form-horizontal.add-product
+                    fieldset
+                        legend Add Product
+                        .form-group
+                            label.col-lg-2.control-label(for='inputName') Name
+                            .col-lg-10
+                                input#inputName.form-control(type='text', placeholder='Name', ng-model="product.name")
+                        .form-group
+                            label.col-lg-2.control-label(for='inputPicture') Picture
+                            .col-lg-10
+                                input#inputPicture.form-control(type='text',  placeholder='Url', ng-model="product.picture")
+                        .form-group
+                            label.col-lg-2.control-label(for='textArea') Description
+                            .col-lg-10
+                                textarea#textAreaDescription.form-control(rows='3', ng-model="product.description")
+                                span.help-block
+                                    | Add a description for your product
+                        .form-group
+                            label.col-lg-2.control-label(for='featured') Featured
+                            .col-lg-10
+                                .checkbox
+                                    label
+                                        input(type='checkbox', ng-model="product.featured")
+                        .form-group
+                            label.col-lg-2.control-label(for='inputStock') Stock quantity
+                            .col-lg-10
+                                input#inputStock.form-control(type='number', min="0", ng-model="product.stock")
+                        .form-group
+                            label.col-lg-2.control-label(for='inputStars') Stars
+                            .col-lg-10
+                                input#inputStars.form-control(type='number', min="0", max="5", ng-model="product.stars")
+                        .form-group
+                            label.col-lg-2.control-label(for='inputPrice') Price
+                            .col-lg-10
+                                input#inputPrice.form-control(type='number', min="0", ng-model="product.price")
+                        .form-group
+                            label.col-lg-2.control-label(for='select') Category
+                            .col-lg-10
+                                select#select.form-control(multiple='' ng-model="product.categories")
+                                    option Food
+                                    option Beverage
+                                    option Dolls
+                                    option Animals
+                                    option Babies
+                                    option Organs
+                        .form-group
+                            .col-lg-10.col-lg-offset-2
+                                //button.btn.btn-default(ng-click="cancel()") Cancel
+                                button.btn.btn-primary(type='submit', ng-click="save(product)") Submit
+            col-md-6
+                .col-md-6
+                    img(ng-src="{{product.picture}}")

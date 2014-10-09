@@ -22,8 +22,8 @@
         tr(ng-repeat="product in products | filter: search | orderBy: sort")
             td
                 a(href="#/products/{{ product._id }}") {{ product.name }}
-            td(ng-repeat="category in product.categories") {{ category }}
-            //td {{ product.categories }}
+            td
+                p(ng-repeat="category in product.categories") {{category}}
             td {{ product.description }}
             td
                 img(ng-src="{{ product.picture }}")

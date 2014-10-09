@@ -17,6 +17,10 @@ var productsSchema = mongoose.Schema({
     seller: {
         type: mongoose.Schema.ObjectId,
         ref: 'User'
+    },
+    comments: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'ProductsComments'
     }
 });
 

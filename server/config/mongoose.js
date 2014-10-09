@@ -3,6 +3,13 @@ var mongoose = require('mongoose'),
     course = require('../models/Course'),
     product = require('../models/Product');
 
+var fs = require('fs');
+var models = fs.readdirSync('./server/models');
+
+for (var i = 0; i < models.length; i++) {
+    require('../models/' + models[i]);
+}
+
 module.exports = function(config) {
     mongoose.connect(config.db);
     var db = mongoose.connection;

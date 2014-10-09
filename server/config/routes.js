@@ -21,6 +21,7 @@ module.exports = function(app) {
 
 
     // for messages
+    
     app.get('/api/messages', controllers.messages.getAll);
     app.post('/api/messages', controllers.messages.add);
 

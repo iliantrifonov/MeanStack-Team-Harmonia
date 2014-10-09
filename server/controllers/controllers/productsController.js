@@ -1,4 +1,6 @@
 var Product = require('mongoose').model('Product');
+var mongoose = require('mongoose');
+require('mongoose-middleware').initialize(mongoose);
 
 module.exports = {
     name: 'products',
@@ -33,7 +35,6 @@ module.exports = {
         },
         getAll: function (req, res, next) {
             var queryParams = req.query;
-            console.log(queryParams);
             if(isEmpty(queryParams)) {
                 Product.find({}).exec(function (err, collection) {
                     if (err) {
@@ -60,11 +61,8 @@ module.exports = {
 
                 res.send(data);
             });
-
         }
     }
-
-
 };
 
 function getByName(req, res) {
@@ -80,22 +78,39 @@ function getByName(req, res) {
 }
 
 function getByPage(req, res) {
+
+    var page = req.query.page * 10 || 0;
+    var order = req.query.order || "asc";
+    var filter;
+
     var options = {
-        limit: 10,
-        skip: req.query.page * 10,
-        sort: req.query.sortBy
+//        filters : {
+//            field : ["name","category","price"]
+//        },
+        start : page,
+        count : 10
     };
+    if(order === "asc"){
+        options.sort = {asc: req.query.sortBy};
+    }
+    else{
+        options.sort = {desc: req.query.sortBy};
+    }
 
-    Product.find({},{},options).exec(function (err, collection) {
-        if (err) {
-            console.log('Products could not be loaded: ' + err);
-            res.status(400);
-            return res.send({reason: 'Products could not be loaded: ' + err.toString()});
-        }
+    Product.find({})
+          .field(options)
+          .filter(options)
+          .order(options)
+          .page(options ,function (err, collection) {
+            if (err) {
+                console.log('Products could not be loaded: ' + err);
+                res.status(400);
+                return res.send({reason: 'Products could not be loaded: ' + err.toString()});
+            }
 
-        res.send(collection);
-    })
-}
+            res.send({results:collection.results, total:collection.total});
+        });
+};
 
 
 function isEmpty(obj) {

@@ -89,7 +89,7 @@ module.exports = {
                 if (err) {
                     console.log('Users could not be loaded: ' + err);
                 }
-                
+
                 res.send(data.basket);
             })
         }

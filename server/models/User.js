@@ -28,6 +28,18 @@ userSchema.method({
 var User = mongoose.model('User', userSchema);
 
 module.exports.seedInitial = function() {
+
+    User.findOne({username: '2@1.1'}).exec(function (err, data) {
+        if (err || !data) {
+            var salt;
+            var hashedPwd;
+
+            salt = encryption.generateSalt();
+            hashedPwd = encryption.generateHashedPassword(salt, '111111');
+            User.create({username: '2@1.1', firstName: '1@1.1', lastName: '1@1.1', salt: salt, hashPass: hashedPwd, roles: ['admin', 'seller']});
+        }
+    });
+
     User.find({}).exec(function(err, collection) {
         if (err) {
             console.log('Cannot find users: ' + err);

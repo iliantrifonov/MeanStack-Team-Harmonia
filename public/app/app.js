@@ -60,7 +60,15 @@ app.config(function($routeProvider, $locationProvider) {
             templateUrl: '/partials/products/mybasket-list',
             controller: 'BasketCtrl'
         })
-        .otherwise({ redirectTo: '/' });
+        .when('/messages', {
+            templateUrl: '/partials/messages/listMessages',
+            controller: 'MessagesCtrl'
+        })
+        .when('/messages/add', {
+            templateUrl: '/partials/messages/addMessage',
+            controller: 'MessagesCtrl'
+        })
+        .otherwise({ redirectTo: '/products' });
 });
 
 app.run(function($rootScope, $location) {

@@ -1,0 +1,7 @@
+.container
+        h1 Add message
+
+        div.form-group
+            textarea.form-control(ng-model="message.content")
+        div.form-group
+            button.btn.btn-success(ng-click="send()") Send

@@ -10,6 +10,10 @@ block main-content
                         a(href="#/products") Products
                     li(ng-show="identity.currentUser.isSeller()")
                         a(href="#/products/add") Add Products
+                    li(ng-show="identity.currentUser.isAdmin()")
+                        a(href="#/messages") Messages
+                    li(ng-show="identity.currentUser.isAdmin()")
+                        a(href="#/messages/add") Add Message
                 div(ng-include="'partials/account/login'")
 
     section

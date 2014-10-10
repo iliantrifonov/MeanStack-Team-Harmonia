@@ -1,0 +1,10 @@
+.container
+    table.table
+        tr
+            td From
+            td Date
+            td Message
+        tr(ng-repeat="message in messages")
+            td {{ message.user.username }}
+            td {{ message.published }}
+            td {{ message.content }}

@@ -10,6 +10,10 @@ module.exports = {
                     console.log('Products could not be loaded: ' + err);
                 }
 
+//                delete collection.user.salt;
+//                delete collection.user.hashPass;
+//                delete collection.user.roles;
+//                delete collection.user.basket;
                 res.send(collection);
             })
         },

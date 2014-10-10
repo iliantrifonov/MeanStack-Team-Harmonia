@@ -29,7 +29,14 @@ module.exports = {
             }
 
             var message = req.body;
-            message.content = escape(message.content);
+            try {
+                message.content = escape(message.content);
+            }
+            catch (ex) {
+                res.status(400).send('Invalid message data : ');
+                console.log(ex);
+                return;
+            }
             message.user = req.user.id;
             var messageForDb = new Message(message);
             messageForDb.save(function (err, data) {

@@ -7,10 +7,17 @@ module.exports = {
     data: {
         createUser: function (req, res, next) {
             var newUserData = req.body;
-            newUserData.username = escape(newUserData.username);
-            newUserData.firstName = escape(newUserData.firstName);
-            newUserData.lastName = escape(newUserData.lastName);
-
+            try {
+                newUserData.username = escape(newUserData.username);
+                newUserData.firstName = escape(newUserData.firstName);
+                newUserData.lastName = escape(newUserData.lastName);
+                newUserData.roles = [];
+            }
+            catch (ex) {
+                res.status(400).send('Invalid user data : ');
+                console.log(ex);
+                return;
+            }
             newUserData.salt = encryption.generateSalt();
             newUserData.hashPass = encryption.generateHashedPassword(newUserData.salt, newUserData.password);
             User.create(newUserData, function (err, user) {
@@ -35,6 +42,17 @@ module.exports = {
                 if (updatedUserData.password && updatedUserData.password.length > 0) {
                     updatedUserData.salt = encryption.generateSalt();
                     updatedUserData.hashPass = encryption.generateHashedPassword(newUserData.salt, newUserData.password);
+                }
+                try {
+                    newUserData.username = escape(newUserData.username);
+                    newUserData.firstName = escape(newUserData.firstName);
+                    newUserData.lastName = escape(newUserData.lastName);
+                    newUserData.roles = [];
+                }
+                catch (ex) {
+                    res.status(400).send('Invalid user data : ');
+                    console.log(ex);
+                    return;
                 }
 
                 User.update({_id: req.body._id}, updatedUserData, function () {

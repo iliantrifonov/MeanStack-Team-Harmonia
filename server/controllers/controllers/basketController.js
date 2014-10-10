@@ -5,12 +5,19 @@ module.exports = {
     name: 'basket',
     data: {
         add: function (req, res, next) {
+
+            if (!req.body.productId){
+                res.status(400).send('No product Id');
+                return;
+            }
+
             var product = Product.findOne({'_id': req.body.productId}).exec(function (err, data) {
 
                 if (err) {
                     res.status(400).send(err);
                     return;
                 }
+
                 if (!data) {
                     res.status(400).send('Product not found');
                     return;
@@ -36,6 +43,12 @@ module.exports = {
             });
         },
         remove: function (req, res, next) {
+
+            if (!req.body.productId){
+                res.status(400).send('No product Id');
+                return;
+            }
+
             var product = Product.findOne({'_id': req.body.productId}).exec(function (err, data) {
                 if (err) {
                     res.status(400).send(err);
@@ -76,6 +89,7 @@ module.exports = {
                 if (err) {
                     console.log('Users could not be loaded: ' + err);
                 }
+                
                 res.send(data.basket);
             })
         }

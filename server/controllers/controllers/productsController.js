@@ -17,11 +17,17 @@ module.exports = {
             }
 
             var updatedProductData = req.body;
-
-            updatedProductData.name = escape(updatedProductData.name);
-            updatedProductData.description  = escape(updatedProductData.description);
-            updatedProductData.picture  = escape(updatedProductData.picture);
-            updatedProductData.additionalInfo  = escape(updatedProductData.additionalInfo);
+            try {
+                updatedProductData.name = escape(updatedProductData.name);
+                updatedProductData.description = escape(updatedProductData.description);
+                updatedProductData.picture = escape(updatedProductData.picture);
+                updatedProductData.additionalInfo = escape(updatedProductData.additionalInfo);
+            }
+            catch (ex) {
+                res.status(400).send('Invalid product data : ');
+                console.log(ex);
+                return;
+            }
 
             Product.findOne({_id: req.body._id}).exec(function (err, data) {
                 if (err) {
@@ -41,6 +47,18 @@ module.exports = {
         },
         createProduct: function(req, res, next){
             var newProductData = req.body;
+            try {
+                newProductData.name = escape(updatedProductData.name);
+                newProductData.description = escape(updatedProductData.description);
+                newProductData.picture = escape(updatedProductData.picture);
+                newProductData.additionalInfo = escape(updatedProductData.additionalInfo);
+            }
+            catch (ex) {
+                res.status(400).send('Invalid product data : ');
+                console.log(ex);
+                return;
+            }
+
             newProductData.seller = req.user.id;
 
             Product.create(newProductData, function (err, product) {

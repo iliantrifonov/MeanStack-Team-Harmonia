@@ -3,12 +3,12 @@ block main-content
     header.nav.navbar-inverse.navbar-fixed-top
         .container
             .navbar-collapse.collapse
-                ul.nav.navbar-nav
+                ul.nav.navbar-nav(ng-controller="LoginCtrl")
                     li
                         a(href="#/") Home
                     li
                         a(href="#/products") Products
-                    li
+                    li(ng-show="identity.currentUser.isSeller()")
                         a(href="#/products/add") Add Products
                 div(ng-include="'partials/account/login'")
 

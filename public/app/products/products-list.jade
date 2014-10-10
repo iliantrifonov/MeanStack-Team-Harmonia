@@ -14,9 +14,12 @@
                 option(value="desc") Descending
         .col-md-1 Page
             input.form-control(type="number", ng-model="selectionOption.page", min = "0", ng-change="getProducts(selectionOption)")
+         .col-md-2
+            a.form-control(href="#/mybasket" ng-if="isAuthenticated === true") My basket
+
 
     br
-    table.table
+    table.table.table-striped.table-hover
         tr
             th Title
             th Categories
@@ -36,3 +39,5 @@
             td  {{ product.stock }}
             td  {{ product.stars }}
             td  {{ product.price }}
+            td
+                button.btn.btn-default(ng-click="saveToBasket(product)" ng-if="isAuthenticated === true") Add to basket

@@ -1,5 +1,6 @@
-app.controller('ProductsListCtrl', function($scope, cachedProducts, ProductsResource) {
+app.controller('ProductsListCtrl', function($scope, cachedProducts, ProductsResource, auth, notifier) {
     //$scope.products = cachedProducts.query();
+    $scope.isAuthenticated = auth.isAuthenticated();
 
     (function(){
         ProductsResource.getProducts({page:0}).then(function (data) {
@@ -14,5 +15,11 @@ app.controller('ProductsListCtrl', function($scope, cachedProducts, ProductsReso
         ProductsResource.getProducts(searchParams).then(function (data) {
             $scope.products = data;
         })
+    }
+
+    $scope.saveToBasket = function(product) {
+        ProductsResource.addToBasket(product._id).then(function(data){
+            notifier.success("Product added successfully");
+        });
     }
 });

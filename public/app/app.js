@@ -35,7 +35,8 @@ app.config(function($routeProvider, $locationProvider) {
         })
         .when('/products/add', {
             templateUrl: '/partials/products/product-add',
-            controller: 'AddProductCtrl'
+            controller: 'AddProductCtrl',
+            resolve: routeUserChecks.isSeller
         })
         .when('/products/:id', {
             templateUrl: '/partials/products/product-details',
@@ -54,6 +55,10 @@ app.config(function($routeProvider, $locationProvider) {
             templateUrl: '/partials/admin/users-list',
             controller: 'UserListCtrl',
             resolve: routeUserChecks.adminRole
+        })
+        .when('/mybasket', {
+            templateUrl: '/partials/products/mybasket-list',
+            controller: 'BasketCtrl'
         })
         .otherwise({ redirectTo: '/' });
 });

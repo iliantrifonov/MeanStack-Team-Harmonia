@@ -6,12 +6,11 @@ module.exports = {
     data: {
         add: function (req, res, next) {
             var product = Product.findOne({'_id': req.body.productId}).exec(function (err, data) {
-                console.log("Kofti error");
+
                 if (err) {
                     res.status(400).send(err);
                     return;
                 }
-                console.log("Kofti error");
                 if (!data) {
                     res.status(400).send('Product not found');
                     return;
@@ -72,11 +71,11 @@ module.exports = {
             });
         },
         getAll: function (req, res, next) {
+
             User.findOne({'_id': req.user.id }).populate('basket').exec(function (err, data) {
                 if (err) {
                     console.log('Users could not be loaded: ' + err);
                 }
-
                 res.send(data.basket);
             })
         }

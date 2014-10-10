@@ -4,6 +4,9 @@ app.factory('UsersResource', function($resource) {
     UsersResource.prototype.isAdmin = function() {
         return this.roles && this.roles.indexOf('admin') > -1;
     };
+    UsersResource.prototype.isSeller = function() {
+        return this.roles && this.roles.indexOf('seller') > -1;
+    };
 
     return UsersResource;
 });

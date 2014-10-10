@@ -14,7 +14,7 @@ module.exports = function(app) {
 
 
     //for comments
-  //  app.post('/api/comments', controllers.comments.createComment);
+   // app.post('/api/comments', controllers.comment.createComment);
     // for messages
 
     app.get('/api/messages', auth.isInRole('admin'), controllers.messages.getAll);
@@ -23,12 +23,12 @@ module.exports = function(app) {
     // for basket
     app.get('/api/basket', auth.isAuthenticated, controllers.basket.getAll);
     app.post('/api/basket', auth.isAuthenticated, controllers.basket.add);
-    app.delete('/api/basket', auth.isAuthenticated, controllers.basket.remove);
+    app.put('/api/basket', auth.isAuthenticated, controllers.basket.remove);
 
     // for products
     // TODO: Add more
     app.put('/api/products', auth.isInRole('seller'), controllers.products.updateProduct);
-    app.post('/api/products', auth.isInRole('seller'), controllers.products.createProduct);
+    app.post('/api/products', controllers.products.createProduct);
     app.get('/api/products', controllers.products.getAll);
     app.get('/api/products/:id', controllers.products.getById);
 

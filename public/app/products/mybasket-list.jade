@@ -1,0 +1,23 @@
+container(ng-controller="BasketCtrl")
+    table.table.table-striped.table-hover
+        tr
+            th Title
+            th Categories
+            th Description
+            th Image
+            th Stock
+            th Stars
+            th Price
+        tr(ng-repeat="product in yourBasketProducts")
+            td
+                a(href="#/products/{{ product._id }}") {{ product.name }}
+            td
+                p(ng-repeat="category in product.categories") {{category}}
+            td {{ product.description }}
+            td
+                img(ng-src="{{ product.picture }}")
+            td  {{ product.stock }}
+            td  {{ product.stars }}
+            td  {{ product.price }}
+            td
+                button.btn.btn-sm(ng-click="deleteFromBasket(product)") Remove
